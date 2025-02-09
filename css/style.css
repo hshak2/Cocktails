@@ -1,0 +1,101 @@
+/******************************************
+/* CSS
+/*******************************************/
+
+/* Box Model Hack */
+*{
+  box-sizing: border-box;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+html {
+  background-color: rgb(31,5,18);
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  list-style: none;
+}
+li {
+  list-style: none;
+  margin: 0 2em 0 0;
+}
+
+h2 {
+  font-size: 1em;
+}
+
+#drinkName {
+  font-size: 2em;
+}
+
+input {
+  font-size: 2em;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#logo {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+
+h1 {
+  display: inline-block;
+}
+button {
+  background-color: rgb(31,5,18);
+  color: white;
+  display: block;
+  margin: 1em auto;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 1em;
+
+}
+p {
+  max-width: 40em;
+  text-align: center;
+  display: block;
+  margin: 1em auto;
+}
+
+img {
+  height: 300px;
+  border-radius: 10px;
+}
+main img{
+  height: 10%;
+}
+#howItsMade {
+  margin: 0 2em;
+  display: flex;
+  flex-direction: column;
+}
+#drinkInstructions {
+  align-self: flex-end;
+}
+#output {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+  margin: 0 20vw;
+  height: 300px;
+}
+
+@media screen and (max-width: 800px)  {
+  #output {
+      flex-direction: column;
+  }
+  #search {
+      width: 80%;
+  }
+}
+
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
