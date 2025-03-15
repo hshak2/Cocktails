@@ -1,122 +1,147 @@
-//The user will enter a cocktail. Get a cocktail name, photo, and instructions and place them in the DOM
 
-// document.querySelector('button').addEventListener('click', getDrink)
-// function getDrink(){
-//     let drink = document.querySelector('input').value
-//     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`)
-//     .then(res => res.json( )) //parse response as JSON
-//     .then(data => {
-//         console.log(data.drinks[0])
-//         document.querySelector('h2').innerText = data.drinks[0].strDrink
-//         document.querySelector('img').src = data.drinks[0].strDrinkThumb
-//         document.querySelector('h3').innerText = data.drinks[0].strInstructions
-//     })
-//     .catch(err => {
-//         console.log(`error ${err}`)
-//     });
-// }
+const formAlertDOM = document.querySelector(".form-alert")
 
-///////
-const $ = document.querySelector.bind(document)
+document.addEventListener('DOMContentLoaded', searchCocktail);
 
-class Cocktail {
-    constructor(data) {
+document.querySelector('.searchName').addEventListener('click', searchCocktail);
 
-        //all knowledge
-        this.data = data
+document.querySelector('.random').addEventListener('click',randomanizer)
 
-        // What are we drinking?
-        this.name = data.strDrink
-        
-        this.instructions = data.strInstructions
+document.querySelector('.firstLetter').addEventListener('click',byFirstLetter)
 
-        // what does it look like?
-        this.image = data.strDrinkThumb
+// for the regular seach using cocktail name
 
-        //get a fresh glass
-        this.glass = data.strGlass
+function searchCocktail() {
+	const cocktail = document.querySelector('input').value;
 
-        //mix up a cocktail with ingredients!
-        this.ingredients = []
-        for (let i=1;i<=15;i++) {
+	resetDOM();
 
-            // get amount and the goods
-            let currentMeasurement = data[`strMeasure${i}`]
-            let currentIngredient = data[`strIngredient${i}`]
+	fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktail}`)
+		.then((res) => res.json())
+		.then((data) => {
+			const drinks = data.drinks;
+			//console.log(drinks);
 
-            // if theres a measurement:
-            if (currentIngredient && currentMeasurement) {
-                this.ingredients.push(currentMeasurement + ' ' + currentIngredient)
-            }
-            else if (currentIngredient) {
-            // just the goods
-             this.ingredients.push(currentIngredient)   
-            }
-    }
-    }
-
+			drinks.forEach((drink) => {
+				//console.log(drink);
+				addToDOM(drink);
+			});
+		})
+		.catch((err) => {
+			formAlertDOM.style.display="block"; 
+        	formAlertDOM.innerHTML = '<strong>No drinks found.</strong> <br> Please double check with the spelling or<br> if you are not sure about the spelling, <br> you can also search with just by the first letter below :)';
+		});
 }
 
-//set up button and initialize list
-let cocktailList = []
-let timeOutList = []
-$('#submit').addEventListener('click', submitSearch)
-$('#search').addEventListener('keydown', function enterSearch(e) {
-    if (e.key === 'Enter') {
-        console.log('pressed enter!')
-        submitSearch()
-    }
-})
 
-//push the button
-function submitSearch() {
-    let search = $('#search').value
-    search.split(' ').join('%20')
-    console.log(search)
-    cocktailList = []
-    timeOutList.forEach(timer => {
-        window.clearTimeout(timer)
-    })
-    getCocktails(search)
+// for seach using the first letter of the cocktail name
+
+function byFirstLetter(){
+
+	const letter = document.querySelector('.letter').value;
+	
+	resetDOM();
+
+	fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`)
+	.then((res)=>res.json())
+	.then((data)=>{
+		const drinks = data.drinks;
+			//console.log(drinks);
+
+			drinks.forEach((drink) => {
+				//console.log(drink);
+				addToDOM(drink);
+			});	
+	})
+		.catch((err) => {
+			alert(err)
+	})
 }
 
-function getCocktails(search) {
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`) //encodeURIComponent(search)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data.drinks)
-        //were any found?
-        if (data.drinks) {
-            for (drink of data.drinks) {
-                cocktailList.push(new Cocktail(drink))
-            }
-            $('#drinksFound').innerHTML = `${cocktailList.length} found:`
-        } else {
-            $('#drinksFound').innerHTML = 'No cocktails found. Try searching for something else.'
-        }
 
-        //Start the carousel
-        cocktailList.forEach((drink, i) => {
-            timeOutList[i] = setTimeout(
-                function(){
-                    updateView(drink)
-                }, i * 8000)
-            })
-  });
-  console.log(cocktailList)
-  
+
+// randomnizser for someone undecisive like me! 
+
+
+function randomanizer(){
+	
+	resetDOM();
+
+	fetch(`https://www.thecocktaildb.com/api/json/v1/1/random.php`)
+	.then((res)=>res.json())
+	.then((data)=>{
+		const drinks = data.drinks;
+			//console.log(drinks);
+
+			drinks.forEach((drink) => {
+				//console.log(drink);
+				addToDOM(drink);
+			});	
+	})
+		.catch((err) => {
+			alert(err);	
+	})	
 }
-//UI UPDATES
-function updateView(drink) {
-    console.log(drink)
-    $('#drinkName').innerHTML = drink.name
-    $('#drinkImage').src = drink.image
-    $('#drinkInstructions').innerHTML = drink.instructions
-    let ingredientsHTML = ''
-    drink.ingredients.forEach((ingredient) => {
-            console.log(ingredient)
-            ingredientsHTML += `<li>${ingredient}</li>`
-        })
-    console.log(ingredientsHTML)
-    $('#ingredients').innerHTML = ingredientsHTML
+
+
+
+// to add more card if there is any
+
+function addToDOM(drink) {
+	const div = document.createElement('div');
+	div.classList.add('swiper-slide');
+	div.classList.add('card');
+
+	div.innerHTML = `
+        <div class="card-content">
+            <div class="drink-name">
+                <h1>${drink.strDrink}</h1>
+            </div>
+
+            <div class="image">
+                <img src="${drink.strDrinkThumb}" alt="${drink.strDrink} cocktail" />
+            </div>
+
+            <div class="ingredients">
+                <h4>Ingredients:</h4>
+                <ul id='ingredient-list'>${listIngredients(drink)}</ul>
+            </div>
+
+            <div class="instructions">
+                <h4>Instructions:</h4>
+                <p>${drink.strInstructions}</p>
+            </div>
+        </div>
+    `;
+
+	document.querySelector('.swiper-wrapper').appendChild(div);
 }
+
+
+//to reset the dom
+
+function resetDOM() {
+	const cards = document.querySelector('.swiper-wrapper');
+
+	while (cards.firstChild) {
+		cards.removeChild(cards.firstChild);
+	}
+}
+
+function listIngredients(drink) {
+	const ingredients = document.getElementById('ingredient-list');
+	let str = '';
+
+	for (const [key, value] of Object.entries(drink)) {
+		if (key.includes('strIngredient') && value) {
+			let measurement = drink['strMeasure' + key.substring(13, key.length)];
+			measurement = measurement ? ` (${measurement.trim()})` : '';
+
+			str += `<li>${value + measurement}</li>\n`;
+		}
+	}
+
+	return str;
+}
+
+//To put default elements in the app, put the in the HTML, since JS resets the DOM everytime we start a new search

@@ -1,70 +1,122 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-	<head>
-    	<meta charset="utf-8">
-    	<meta name="description" content="This is where your description goes">
-    	<meta name="keywords" content="one, two, three">
 
-		<title>Title in the tab</title> -->
-
-		<!-- external CSS link -->
-		<!-- <link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/style.css">
-	</head>
-	<body>
-
-		<h1>Which Cocktail?</h1>
-		<input type="text" name="" value="">
-		<button type="button" name="button">Get Cocktail</button>
-
-		<h2>Name</h2>
-		<img src="" alt="">
-
-
-		<h3>Instructions</h3>
-
-		<script type="text/javascript" src="js/main.js"></script>
-	</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content='Eight Second Cocktails'>
-    <meta property="og:image" content='preview.png'>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="shortcut icon" href="cocktail.png">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    
 
-<title>Cocktails</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Link Swiper's CSS-->
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- Fontawesome CDN link-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Header CSS -->
+
+    <!-- <link rel="stylesheet" href="css/header.css" /> -->
+
+    <title>Fresh Drink</title>
 </head>
+
 <body>
-    <main>
-        <img id='logo' src='cocktail.png'><h1>Cocktails</h1>
-        <h2>Search for cocktails, ingredients, etc.</h2>
-        <input type="text" id="search">
-        <button id="submit">Search</button>
-        <h4 id="drinksFound"></h4>
-    </main>
-        <h2 id="drinkName"></h2>
-    <section id="output">
-        <section id='whatItIs'>
-            <img src="" id="drinkImage">
-        </section>
-        <section id="howItsMade">
-            <ul id="ingredients">
-                <!-- programmatic li's -->
-            </ul>
-            <p id="drinkInstructions"></p>
-        </section>
+    <!-- Search Bar -->
+    <!-- <img src="./img/1.png" alt="cocktail_bg"> -->
+    <header>
+        <div class="logo-search">
+            <!-- <div class="container"> -->
+            <!-- <img class='side_img' src="./img/cocktail/cocktails.left.png" alt="logo" /> -->
+            <img class='logo_img' src="./img/logo.png" alt="logo" />
+            <!-- <img class='side_img' src="./img/cocktail/cocktails.right.png" alt="logo" /> -->
+            <!-- </div> -->
+            <form id="form">
+                <div class="form-content">
+                    <!-- button for search -->
+                    <div class='container center'>
+                    <input class="search" type="text" name="" value="" placeholder="Margarita..." /><button class="searchName"type="button" name="button">Search</button>
+                    </div>
+                    <div class="form-alert"></div>
+                    <!-- button for fisrt letter-->
+                    <div class='container center'>
+                    <input class='letter' type="text" name="" value="" placeholder="ABC" /><button class="firstLetter" type="button" name="button">Search by the first letter</button> 
+                    </div>
+
+                    <!-- button for random -->
+                    <button class="random" type="button" name="button">Don't know what you want? <br> Click here!!<br> I will choose one for you!</button>
+                </div>
+            </form>
+        </div>
+    </header>
+
+    <!-- Carousel Slider -->
+
+    <section>
+        <div class="swiper mySwiper container">
+            <div class="swiper-wrapper content">
+               
+            </div>
+        </div>
+        <div class="swiper-button-next smallParts hidden"></div>
+        <div class="swiper-button-prev smallParts hidden"></div>
+        <div class="swiper-pagination smallParts"></div>
     </section>
+
+    <!-- Swiper JS -->
+
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+<!-- <script>
+    var swiper = new Swiper('.mySwiper', {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        slidesPerGroup: 3,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script> -->
+
+
+
+    <script>
+
+        var swiper = new Swiper('.mySwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            slidesPerGroup: 1,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+
+
+
 </body>
-<footer>
-    <script src="main.js"></script>
-</footer>
+
 </html>
