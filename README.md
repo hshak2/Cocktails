@@ -3,6 +3,7 @@ This is a page that allows you to search a cocktail or any type of drink and get
 
 **Link to project:** https://hshak2.github.io/Cocktails/
 
+<img width="2419" alt="Screenshot 2025-03-15 at 1 12 42 PM" src="https://github.com/user-attachments/assets/1bc26c1b-ad8b-4c89-9bf0-e87366257fd7" />
 
 
 ## How It's Made:
